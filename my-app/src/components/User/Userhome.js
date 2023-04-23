@@ -1,9 +1,12 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Home from '../Home/Home'
+import { useNavigate } from "react-router-dom";
+import  { useState } from "react";
 
 function Userhome() {
 
+<<<<<<< HEAD
   // const [email,setEmail]=useState("")
   // const [password,setPassword]=useState("")
 
@@ -18,10 +21,23 @@ function Userhome() {
   function setRegData(e,propName){
     let temp=e.target.value
     setregData(data =>({
+=======
+  const navigate = useNavigate();
+  const [formData,setFormData]=useState({
+    email:"",
+    password:""
+  });
+ 
+  const {email,password} = formData
+  function updateData(e,propName){
+    let temp=e.target.value
+    setFormData(data =>({
+>>>>>>> asfar
      ...data,[propName]:temp
     }))
     
      }
+<<<<<<< HEAD
      
 
      async function changeData(e){
@@ -43,6 +59,36 @@ function Userhome() {
     
     
 
+=======
+  
+  async function submitted(e){
+    e.preventDefault()
+    // const data=new FormData(e.target)
+    console.log(formData)
+
+     
+     fetch("/user/login",{
+      method:"POST",
+      headers:{"content-type":"application/json","accept":"application/json"},
+      body:JSON.stringify(formData)
+      
+  })
+  .then((res)=>res.json())
+  .then((data)=>{
+     localStorage.setItem('token', data.data)
+     if (data.status == "ok")
+     {
+      alert("login Successful")
+      navigate('/Userproposals')
+     }if (data.status == "error"){
+      alert(`${data.error}`)
+    }
+     
+    console.log(data)})
+  .catch((err)=>{
+    console.log(err)})
+   }
+>>>>>>> asfar
   return (
     <div>
         <Home/>
@@ -58,6 +104,7 @@ function Userhome() {
             <h2>Sign in your Account</h2>
           </div>
           <div className="form">
+<<<<<<< HEAD
             <form method="post" onSubmit={changeData}>
               <div className="input">
                 {" "}
@@ -68,6 +115,16 @@ function Userhome() {
                 {" "}
                 <input type="password" placeholder="Password" name='password'
                 onChange={e=>setRegData(e,"password")}  />
+=======
+            <form method="post"  onSubmit={submitted}>
+              <div className="input">
+                {" "}
+                <input type="name" placeholder="Phone/Email" style={{width:'300px'}} name="email" onChange={e=>updateData(e,"email")} required/>{" "}
+              </div>
+              <div className="input">
+                {" "}
+                <input type="password" placeholder="Password" style={{width:'300px'}} name="password"  onChange={e=>updateData(e,"password")} required/>{" "}
+>>>>>>> asfar
               </div>
               <div className="forget">
                 {" "}
@@ -79,9 +136,11 @@ function Userhome() {
                   {" "}
                   <Link to="/createuseraccount" style={{textDecoration:'none'}}>Create Account</Link>
                 </div>
-                <button className="button" type="submit">
-                  SIGN IN
+                  
+                   {/* style={{textDecoration:'none',color:'white'}} */}
+                <button className="button" type="submit">SIGN IN
                 </button>
+                  
               </div>
             </form>
           </div>

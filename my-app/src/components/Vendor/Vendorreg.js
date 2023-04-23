@@ -1,17 +1,30 @@
 import React, { useState } from "react";
 import Home from "../Home/Home";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function Vendorreg() {
+<<<<<<< HEAD
+=======
+  const navigate = useNavigate();
+>>>>>>> asfar
 
   const [regForm,setRegForm]=useState({
     name:"",
     email:"",
     contact:"",
     password:"",
+<<<<<<< HEAD
     conformpassword:""
   })
 
+=======
+    conformpassword:"",
+   
+  })
+  const {name, email, contact,password} = regForm;
+>>>>>>> asfar
   function updateData(e,propName){
     let temp=e.target.value
     setRegForm(data =>({
@@ -21,6 +34,7 @@ function Vendorreg() {
      }
 
      async function submitform(e){
+<<<<<<< HEAD
       e.preventDefault()
       // const data=new FormData(e.target)
       console.log(regForm)
@@ -39,6 +53,42 @@ function Vendorreg() {
   
 
 
+=======
+     
+      // const data=new FormData(e.target)
+      console.log(regForm)
+      e.preventDefault();
+      if (regForm.password !== regForm.conformpassword)
+      { alert("password and conform password not match")}
+
+     else
+       {
+      
+        fetch("/register",{
+        method:"POST",
+        crossDoamin : true,
+        headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+        body:JSON.stringify(regForm)
+        
+    })
+    .then((res)=>res.json())
+    .then((data)=>{
+      if (data.status == "ok")
+      {
+       alert("registration Successful")
+       navigate("/")
+      }
+      if (data.status == "error"){
+        alert(`${data.error}`)
+      }
+      console.log(data ,"VendorRegisterd")})
+    
+    .catch((err)=>{
+      console.log(err)})
+     }}
+  
+
+>>>>>>> asfar
   return (
     <div>
       <Home />
@@ -62,6 +112,7 @@ function Vendorreg() {
             <h2>Register in your account</h2>
           </div>
           <div className="form">
+<<<<<<< HEAD
             <form method="post" onSubmit={submitform}>
                 <div className="input">
                     {" "}
@@ -87,6 +138,28 @@ function Vendorreg() {
                     {" "}
                     <input type="password" placeholder="Confirm Password" name="conformpassword"
                      onChange={e=>updateData(e,"conformpassword")} required/>
+=======
+            <form method="post" style={{margin:'0px 0px 0px 0px'}} onSubmit={submitform}>
+                <div className="input">
+                    {" "}
+                    <input type="text" placeholder="Name" style={{width:'86%'}}  onChange={e=>updateData(e,"name")} required/>
+                </div>
+                <div className="input">
+                    {" "}
+                    <input type="email" placeholder="Email" style={{width:'86%'}} onChange={e=>updateData(e,"email")} required/>
+                </div>
+                <div className="input">
+                    {" "}
+                    <input type="number" placeholder="Contact" style={{width:'86%'}} onChange={e=>updateData(e,"contact")} required/>
+                </div>
+                <div className="input">
+                    {" "}
+                    <input type="password" placeholder="Password" style={{width:'86%'}} onChange={e=>updateData(e,"password")} required/>
+                </div>
+                <div className="input">
+                    {" "}
+                    <input type="password" placeholder="Confirm Password" style={{width:'86%'}} onChange={e=>updateData(e,"conformpassword")} required/>
+>>>>>>> asfar
                 </div>
 
                 <div className="regfooter">
