@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-import React, { useState } from "react";
-=======
 import React from "react";
 import  { useState } from "react";
->>>>>>> asfar
 import { Link } from "react-router-dom";
 import "./Vendorhome.css";
 import Home from "../Home/Home";
@@ -12,15 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 function VendorHome() {
 
-<<<<<<< HEAD
- 
-  const [formData,setFormData]=useState({
-    email:"",
-    password:""
-  })
- 
-
-=======
   const navigate = useNavigate();
   const [formData,setFormData]=useState({
     email:"",
@@ -28,7 +15,6 @@ function VendorHome() {
   });
  
   const {email,password} = formData
->>>>>>> asfar
   function updateData(e,propName){
     let temp=e.target.value
     setFormData(data =>({
@@ -48,27 +34,23 @@ function VendorHome() {
     // const data=new FormData(e.target)
     console.log(formData)
 
-<<<<<<< HEAD
-
-     fetch("http://localhost:4000/user/login",{
-=======
      
      fetch("/login",{
->>>>>>> asfar
       method:"POST",
       headers:{"content-type":"application/json","accept":"application/json"},
       body:JSON.stringify(formData)
       
   })
-<<<<<<< HEAD
+
   .then((data)=>data.json())
   .then((responce)=>console.log(responce))
   .catch((error)=>console.log(error.message))
-=======
+
   .then((res)=>res.json())
   .then((data)=>{
-     localStorage.setItem('token', data.data)
-     if (data.status === "ok")
+     localStorage.setItem('vendorToken', data.data);
+     localStorage.setItem('vendorloggedIn',true);
+     if (data.status == "ok")
      {
       alert("login Successful")
       navigate("/VendorProposal")
@@ -79,7 +61,7 @@ function VendorHome() {
     console.log(data)})
   .catch((err)=>{
     console.log(err)})
->>>>>>> asfar
+
    }
 
     return (<>
@@ -96,18 +78,6 @@ function VendorHome() {
             <h2>Sign in your Account</h2>
           </div>
           <div className="form">
-<<<<<<< HEAD
-            <form method="post" onSubmit={submitted}>
-              <div className="input">
-                {" "}
-                <input type="name" name="email" placeholder="Phone/Email" 
-                 onChange={e=>updateData(e,"email")} />{" "}
-              </div>
-              <div className="input">
-                {" "}
-                <input type="password" placeholder="Password" name="password"
-                onChange={e=>updateData(e,"password")}  />{" "}
-=======
             <form method="post"  onSubmit={submitted}>
               <div className="input">
                 {" "}
@@ -116,7 +86,6 @@ function VendorHome() {
               <div className="input">
                 {" "}
                 <input type="password" placeholder="Password" style={{width:'300px'}} name="password"  onChange={e=>updateData(e,"password")} required />{" "}
->>>>>>> asfar
               </div>
               <div className="forget">
                 {" "}

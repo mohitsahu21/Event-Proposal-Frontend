@@ -2,7 +2,7 @@ import React from "react";
 import "./Userprop.css";
 import { Link } from "react-router-dom";
 
-function UserNav() {
+function UserNav({logout}) {
   return (
     <div className="nav">
       <div className="venlogo">
@@ -14,7 +14,7 @@ function UserNav() {
       <div class="dropdown">
         <div className="imgven"></div>
         <div class="dropdown-content">
-          <Link to="/User">Log Out</Link>
+          <Link onClick={logout} to="/User">Log Out</Link>
         </div>
       </div>
     </div>

@@ -7,14 +7,16 @@ import { useNavigate } from "react-router-dom";
 
 function VendorProp() {
   const navigate = useNavigate();
- const [vendorName , setVendorName] = useState("")
+  const [proposals , setProposals] = useState([]);
+ const [vendorName , setVendorName] = useState("");
+ const [isDeleted, setIsdeleted] = useState(false)
  const getVendorData = () =>{
   fetch("/vendordata",{
     method:"POST",
     crossDoamin : true,
     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
     body:JSON.stringify({
-      token: localStorage.getItem("token"),
+      token: localStorage.getItem("vendorToken"),
     }
     )
 })
@@ -30,53 +32,63 @@ function VendorProp() {
 .catch((err)=>{
   console.log(err)})
  }
+// delete proposal
 
- const logout=()=> {
-   localStorage.clear();
+async function deleteEvent(id){
+  let Id = {id};
+  setIsdeleted(true);
+  fetch("/deleteproposal",{
+    method:"DELETE",
+    crossDoamin : true,
+    headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+    body:JSON.stringify(Id)
+    
+})
+.then((res)=>res.json())
+.then((data)=>{
+  alert("Proposal Deleted")
+  
+  
+  console.log(data);
+  
+ 
+ })
+ 
 
+.catch((err)=>{
+  console.log(err)})
  }
 
 
+ const getProposals =() =>{
+  fetch("/proposals",{
+    method:"GET",
+    crossDoamin : true,
+    headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+    
+})
+.then((res)=>res.json())
+.then((data) =>{
+  setProposals(data)
+  })
+  .catch((err)=>{
+  console.log(err)})
+ }
+
   useEffect(()=>{
-        getVendorData();
-        if(!localStorage.getItem("token")){
+        // getVendorData();
+        setIsdeleted(false);
+        getProposals();
+
+        if(!localStorage.getItem("vendorToken")){
           navigate('/')
         }
-  },[])
+  },[isDeleted])
 
-  const events = [
-    {
-      eventname: "Event Name",
-      eventtext: "lorem sdasdasdsadasdasdsadasdsadsadasdsadsadsadasdsadsad",
-      eventtype: "Marriage",
-      proposaltype: "Venue",
-      fromdate: "12/02/2222",
-      todate: "14/02/2222",
-      budget: "20000",
-    },
-    {
-      eventname: "Event Name",
-      eventtext: "lorem sdasdasdsadasdasdsadasdsadsadasdsadsadsadasdsadsad",
-      eventtype: "Marriage",
-      proposaltype: "Venue",
-      fromdate: "12/02/2222",
-      todate: "14/02/2222",
-      budget: "23000",
-    },
-    {
-      eventname: "Event Name",
-      eventtext: "lorem sdasdasdsadasdasdsadasdsadsadasdsadsadsadasdsadsad",
-      eventtype: "Marriage",
-      proposaltype: "Venue",
-      fromdate: "12/02/2222",
-      todate: "14/02/2222",
-      budget: "23000",
-    },
-  ];
-
+ 
   return (
     <div>
-      <Navbar logout={logout}/>
+      <Navbar/>
       <div className="propcontainer">
         <div className="container1">
           <div className="proposal">
@@ -94,8 +106,8 @@ function VendorProp() {
           </div>
         </div>
         <div className="container2">
-          {events.map((item, i) => {
-            return <Events data={item} />;
+          {proposals.map((item) => {
+            return <Events key={item._id}  id={item._id} data={item} delete={deleteEvent} />;
           })}
         </div>
       </div>

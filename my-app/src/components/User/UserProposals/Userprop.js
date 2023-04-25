@@ -45,16 +45,23 @@ function Userprop() {
         }
     ]
     useEffect(()=>{
-        if(!localStorage.getItem("token")){
+        if( !localStorage.getItem("vendorToken") && !localStorage.getItem("userToken")){
             navigate('/User')
           }
     },[])
     
+    
+ const logout=()=> {
+    localStorage.removeItem('userToken');
+  localStorage.removeItem('userloggedIn');
+  navigate('/User')
+  }
+ 
 
 
   return (
     <div>
-      <UserNav/>
+      <UserNav logout={logout}/>
       <div className='userimg'></div>
       <div className='proposalcontainer'>
         {

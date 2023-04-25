@@ -75,7 +75,8 @@ function Userhome() {
   })
   .then((res)=>res.json())
   .then((data)=>{
-     localStorage.setItem('token', data.data)
+     localStorage.setItem('userToken', data.data);
+     localStorage.setItem('userloggedIn',true);
      if (data.status == "ok")
      {
       alert("login Successful")

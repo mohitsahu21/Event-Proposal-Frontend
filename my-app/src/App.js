@@ -11,6 +11,9 @@ import Userprop from "./components/User/UserProposals/Userprop";
 import Proposaldetail from "./components/User/UserProposals/Proposaldetail";
 
 function App() {
+      // const isVendorLoggedIn = localStorage.getItem('vendorloggedIn');
+      // const isUserLoggedIn = localStorage.getItem('userloggedIn');
+
   return (
     <>
       <BrowserRouter>
