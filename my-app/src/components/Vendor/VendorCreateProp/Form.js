@@ -6,6 +6,7 @@ import { useState } from "react";
 function Form() {
   const navigate = useNavigate();
   
+  const [image,setImage]=useState([])
   const [regForm,setRegForm]=useState({
     eventName : "", placeOfEvent : "",proposalType : "",eventType : "", budget : "",fromDate :"", toDate : "",foodPreference : "",description : "" ,events : "",token: localStorage.getItem("vendorToken")
    
@@ -38,12 +39,12 @@ function Form() {
     })
     .then((res)=>res.json())
     .then((data)=>{
-      if (data.status == "ok")
+      if (data.status === "ok")
       {
        alert("Proposal Created")
        navigate("/VendorProposal")
       }
-      if (data.status == "error"){
+      if (data.status === "error"){
         alert(`${data.error}`)
       }
       console.log(data ,"VendorRegisterd")})
@@ -72,6 +73,15 @@ function Form() {
      }
   //  console.log(localStorage.getItem("vendorToken"));
    console.log(regForm.token);
+
+function setpreview(files){
+   setImage("")
+   for(let i=0;i<files.length;i++)
+   {
+    let url =URL.createObjectURL(files[i]);
+    setImage(arr=>([...arr,url]))
+   }
+}
 
 
   return (
@@ -151,12 +161,24 @@ function Form() {
         </div>
         <div className="containerform2">
           <div style={{ height: "275px" }}>
-          <p className="zupp">Images <button>Add</button><input type="file" name="Add" /></p>
+          <p className="zupp">Images <button>Add</button><input type="file" name="Add" multiple onChange={(e)=>{setpreview(e.target.files)}}/></p>
 
             <div className="containerform2grid">
-              <div style={{ border: "2px solid black" }}>
+              <div className="img-container"><img src={image[0]} alt="" />  </div>
+              <div className="img-container"><img src={image[1]} alt="" />  </div>
+              <div className="img-container"><img src={image[2]} alt="" />  </div>
+              <div className="img-container"><img src={image[3]} alt="" />  </div>
+              <div className="img-container"><img src={image[4]} alt="" />  </div>
+              <div className="img-container"><img src={image[5]} alt="" />  </div>
+              <div className="img-container"><img src={image[6]} alt="" />  </div>
+              <div className="img-container"><img src={image[7]} alt="" />  </div>
+              <div className="img-container"><img src={image[8]} alt="" />  </div>
+             
+             
+              {/* <div style={{ border: "2px solid black" }}>
             <img  width={100} height={100} alt="img.jpg"/>   
-              </div>
+              </div> */}
+
               
             </div>
           </div>

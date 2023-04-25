@@ -2,26 +2,10 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Home from '../Home/Home'
 import { useNavigate } from "react-router-dom";
-import  { useState } from "react";
+
 
 function Userhome() {
 
-<<<<<<< HEAD
-  // const [email,setEmail]=useState("")
-  // const [password,setPassword]=useState("")
-
-  const [regdata,setregData]=useState({
-    name:"",
-    email:"",
-    contact:"",
-    password:"",
-    conformpassword:""
-  })
-
-  function setRegData(e,propName){
-    let temp=e.target.value
-    setregData(data =>({
-=======
   const navigate = useNavigate();
   const [formData,setFormData]=useState({
     email:"",
@@ -32,34 +16,10 @@ function Userhome() {
   function updateData(e,propName){
     let temp=e.target.value
     setFormData(data =>({
->>>>>>> asfar
      ...data,[propName]:temp
     }))
     
      }
-<<<<<<< HEAD
-     
-
-     async function changeData(e){
-      e.preventDefault()
-      // const data=new FormData(e.target)
-      console.log(regdata)
-
-
-       fetch("http://localhost:4000/user/login",{
-        method:"POST",
-        headers:{"content-type":"application/json","accept":"application/json"},
-        body:JSON.stringify(regdata)
-        
-    })
-    .then((data)=>data.json())
-    .then((responce)=>console.log(responce))
-    .catch((error)=>console.log(error.message))
-     }
-    
-    
-
-=======
   
   async function submitted(e){
     e.preventDefault()
@@ -89,7 +49,6 @@ function Userhome() {
   .catch((err)=>{
     console.log(err)})
    }
->>>>>>> asfar
   return (
     <div>
         <Home/>
@@ -105,18 +64,6 @@ function Userhome() {
             <h2>Sign in your Account</h2>
           </div>
           <div className="form">
-<<<<<<< HEAD
-            <form method="post" onSubmit={changeData}>
-              <div className="input">
-                {" "}
-                <input type="text" placeholder="Phone/Email" name='email'
-                 onChange={e=>setRegData(e,"email")} />
-              </div>
-              <div className="input">
-                {" "}
-                <input type="password" placeholder="Password" name='password'
-                onChange={e=>setRegData(e,"password")}  />
-=======
             <form method="post"  onSubmit={submitted}>
               <div className="input">
                 {" "}
@@ -125,7 +72,6 @@ function Userhome() {
               <div className="input">
                 {" "}
                 <input type="password" placeholder="Password" style={{width:'300px'}} name="password"  onChange={e=>updateData(e,"password")} required/>{" "}
->>>>>>> asfar
               </div>
               <div className="forget">
                 {" "}

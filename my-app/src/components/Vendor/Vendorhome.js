@@ -5,22 +5,18 @@ import "./Vendorhome.css";
 import Home from "../Home/Home";
 import Userhome from "../User/Userhome";
 import { useNavigate } from "react-router-dom";
-
 function VendorHome() {
-
   const navigate = useNavigate();
   const [formData,setFormData]=useState({
     email:"",
     password:""
   });
- 
   const {email,password} = formData
   function updateData(e,propName){
     let temp=e.target.value
     setFormData(data =>({
      ...data,[propName]:temp
     }))
-    
      }
   // function updateData(e,[propName]){
   //   let temp=e.target.value
@@ -28,42 +24,30 @@ function VendorHome() {
   //     ...data,[propName]: temp
   //   }))
   // }
-
   async function submitted(e){
     e.preventDefault()
     // const data=new FormData(e.target)
     console.log(formData)
-
-     
      fetch("/login",{
       method:"POST",
       headers:{"content-type":"application/json","accept":"application/json"},
       body:JSON.stringify(formData)
-      
   })
-
-  .then((data)=>data.json())
-  .then((responce)=>console.log(responce))
-  .catch((error)=>console.log(error.message))
-
   .then((res)=>res.json())
   .then((data)=>{
      localStorage.setItem('vendorToken', data.data);
      localStorage.setItem('vendorloggedIn',true);
-     if (data.status == "ok")
+     if (data.status === "ok")
      {
       alert("login Successful")
       navigate("/VendorProposal")
      }if (data.status === "error"){
       alert(`${data.error}`)
     }
-     
     console.log(data)})
   .catch((err)=>{
     console.log(err)})
-
    }
-
     return (<>
         <Home/>
         <div className="Logo">LOGO</div>
@@ -73,7 +57,6 @@ function VendorHome() {
             <p className="vendor">Vendor</p>
             <Link to="/User" style={{textDecoration:'none', marginTop:'15px'}}>User</Link>
           </div>
-
           <div className="heading">
             <h2>Sign in your Account</h2>
           </div>
@@ -91,7 +74,6 @@ function VendorHome() {
                 {" "}
                 <Link to="/forgetPassword" style={{textDecoration:'none'}}>Forget Password</Link>{" "}
               </div>
-
               <div className="footer">
                 <div className="create">
                   {" "}
@@ -109,5 +91,4 @@ function VendorHome() {
     </>
   );
 }
-
 export default VendorHome;

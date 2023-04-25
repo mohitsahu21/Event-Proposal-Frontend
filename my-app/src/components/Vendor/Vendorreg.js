@@ -2,29 +2,20 @@ import React, { useState } from "react";
 import Home from "../Home/Home";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+
 
 function Vendorreg() {
-<<<<<<< HEAD
-=======
   const navigate = useNavigate();
->>>>>>> asfar
 
   const [regForm,setRegForm]=useState({
     name:"",
     email:"",
     contact:"",
     password:"",
-<<<<<<< HEAD
-    conformpassword:""
-  })
-
-=======
     conformpassword:"",
    
   })
   const {name, email, contact,password} = regForm;
->>>>>>> asfar
   function updateData(e,propName){
     let temp=e.target.value
     setRegForm(data =>({
@@ -34,26 +25,6 @@ function Vendorreg() {
      }
 
      async function submitform(e){
-<<<<<<< HEAD
-      e.preventDefault()
-      // const data=new FormData(e.target)
-      console.log(regForm)
-
-
-       fetch("http://localhost:4000/register",{
-        method:"POST",
-        headers:{"content-type":"application/json","accept":"application/json"},
-        body:JSON.stringify(regForm)
-        
-    })
-    .then((data)=>data.json())
-    .then((responce)=>console.log(responce))
-    .catch((error)=>console.log(error.message))
-     }
-  
-
-
-=======
      
       // const data=new FormData(e.target)
       console.log(regForm)
@@ -88,7 +59,6 @@ function Vendorreg() {
      }}
   
 
->>>>>>> asfar
   return (
     <div>
       <Home />
@@ -112,33 +82,6 @@ function Vendorreg() {
             <h2>Register in your account</h2>
           </div>
           <div className="form">
-<<<<<<< HEAD
-            <form method="post" onSubmit={submitform}>
-                <div className="input">
-                    {" "}
-                    <input type="text" placeholder="Name" name="name"
-                     onChange={e=>updateData(e,"name")} required/>
-                </div>
-                <div className="input">
-                    {" "}
-                    <input type="email" placeholder="Email" name="email" 
-                    onChange={e=>updateData(e,"email")} required/>
-                </div>
-                <div className="input">
-                    {" "}
-                    <input type="text" placeholder="Contact" name="contact" 
-                    onChange={e=>updateData(e,"contact")} required/>
-                </div>
-                <div className="input">
-                    {" "}
-                    <input type="password" placeholder="Password" name="password" 
-                    onChange={e=>updateData(e,"password")} required/>
-                </div>
-                <div className="input">
-                    {" "}
-                    <input type="password" placeholder="Confirm Password" name="conformpassword"
-                     onChange={e=>updateData(e,"conformpassword")} required/>
-=======
             <form method="post" style={{margin:'0px 0px 0px 0px'}} onSubmit={submitform}>
                 <div className="input">
                     {" "}
@@ -159,7 +102,6 @@ function Vendorreg() {
                 <div className="input">
                     {" "}
                     <input type="password" placeholder="Confirm Password" style={{width:'86%'}} onChange={e=>updateData(e,"conformpassword")} required/>
->>>>>>> asfar
                 </div>
 
                 <div className="regfooter">
