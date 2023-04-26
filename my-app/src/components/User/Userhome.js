@@ -26,7 +26,7 @@ function Userhome() {
     console.log(formData)
 
      
-     fetch("https://event-proposal-backend-g0mb.onrender.com/user/login",{
+     fetch("/user/login",{
       method:"POST",
       headers:{"content-type":"application/json","accept":"application/json"},
       body:JSON.stringify(formData)
@@ -36,6 +36,7 @@ function Userhome() {
   .then((data)=>{
      localStorage.setItem('userToken', data.data);
      localStorage.setItem('userloggedIn',true);
+     localStorage.setItem('userName', data.userName);
      if (data.status == "ok")
      {
       alert("login Successful")

@@ -35,7 +35,7 @@ function VendorHome() {
     console.log(formData)
 
      
-     fetch("https://event-proposal-backend-g0mb.onrender.com/login",{
+     fetch("/login",{
       method:"POST",
       headers:{"content-type":"application/json","accept":"application/json"},
       body:JSON.stringify(formData)
@@ -45,6 +45,7 @@ function VendorHome() {
   .then((data)=>{
      localStorage.setItem('vendorToken', data.data);
      localStorage.setItem('vendorloggedIn',true);
+     localStorage.setItem('vendorName', data.vendorName);
      if (data.status == "ok")
      {
       alert("login Successful")

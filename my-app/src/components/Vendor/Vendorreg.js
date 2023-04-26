@@ -34,7 +34,7 @@ function Vendorreg() {
      else
        {
       
-        fetch("https://event-proposal-backend-g0mb.onrender.com/register",{
+        fetch("/register",{
         method:"POST",
         crossDoamin : true,
         headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
