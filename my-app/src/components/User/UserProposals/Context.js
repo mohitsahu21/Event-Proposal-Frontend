@@ -7,7 +7,8 @@ const AppContext = ({children}) => {
     const [select,setSelect] = useState([])
     
      const handleSelect = (proposal) =>{
-             setSelect(proposal);
+        localStorage.setItem('selectedproposal', proposal);
+        setSelect(proposal);
              
      }
     
@@ -16,4 +17,5 @@ const AppContext = ({children}) => {
             {children}
         </Context.Provider>);
 }
+
 export default AppContext;

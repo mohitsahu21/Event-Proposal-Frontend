@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UserNav from "./UserNav";
 import Proposal from "./Proposal";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "./Context";
@@ -10,11 +10,17 @@ function Userprop() {
   const navigate = useNavigate();
   const [proposal, setProposal] = useState([]);
   const { select } = useContext(Context);
+  const [getdeselect ,setGetdeselect]=useState(true);
+
+  function deleteselect(){
+    localStorage.removeItem("selectedproposal");
+    setGetdeselect(false)
+  }
   // const [getselected , setGetSelected] = useState([]);
   // const [vendor,setVendor]=useState([]);
   // console.log(select.length===0 ? "false" : "true");
-//   console.log(select._id)
-//  console.log(getselected)
+  //   console.log(select._id)
+  //  console.log(getselected)
   // const selectedProposal = ()=>{
   //   fetch(`/getselectedproposals/${select._id}`, {
   //     method: "GET",
@@ -34,10 +40,9 @@ function Userprop() {
   //       console.log(err);
   //     });
   // };
-  
 
   const getProposaldata = () => {
-    fetch("/proposals", {
+    fetch("https://event-proposal-backend-g0mb.onrender.com/proposals", {
       method: "GET",
       crossDoamin: true,
       headers: {
@@ -57,9 +62,8 @@ function Userprop() {
   // console.log(proposal)
   // useEffect(() => {
   //   selectedProposal();
-   
-  // }, [select]);
 
+  // }, [select]);
 
   useEffect(() => {
     // selectedProposal();
@@ -72,15 +76,17 @@ function Userprop() {
     }
   }, []);
 
- 
+  useEffect(()=>{
+
+  },[getdeselect])
 
   return (
     <>
       <div>
-        <UserNav  />
+        <UserNav />
         <div className="userimg"></div>
         <div>
-          {!(select.length===0) ? (
+          {(localStorage.getItem("selectedproposal")) ? (
             <div>
               <div className="selected">
                 <p
@@ -93,6 +99,29 @@ function Userprop() {
                 >
                   Selected
                 </p>
+                <div
+                  style={{
+                    position: "relative",
+                    top: "-39px",
+                    left: "105px",
+                    display: "inline-block",
+                  }}
+                >
+                  <button
+                    onClick={deleteselect}
+                    style={{
+                      width: "93px",
+                      height: "32px",
+                      background: "#264774 0% 0% no-repeat padding-box",
+                      borderradius: "8px",
+                      opacity: "1",
+                      color: "#ffffff",
+                      border: "none",
+                    }}
+                  >
+                    Delete Select
+                  </button>
+                </div>
                 <div className="selectcontainer">
                   <div className="userproposal">
                     <div className="prop-img">
@@ -139,12 +168,14 @@ function Userprop() {
             </div>
           ) : (
             <div>
-              <p style={{ position: "relative", top: "288px", left: "154px" }}>Proposals</p>
-            <div className="proposalcontainer">
-              {proposal.map((item, i) => {
-                return <Proposal key={i} data={item} />;
-              })}
-            </div>
+              <p style={{ position: "relative", top: "288px", left: "154px" }}>
+                Proposals
+              </p>
+              <div className="proposalcontainer">
+                {proposal.map((item, i) => {
+                  return <Proposal key={i} data={item} />;
+                })}
+              </div>
             </div>
           )}
         </div>
