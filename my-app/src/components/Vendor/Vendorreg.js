@@ -92,7 +92,7 @@ function Vendorreg() {
                 </div>
                 <div className="input">
                     {" "}
-                    <input type="number" placeholder="Contact" min={10} max={10} style={{width:'86%'}} onChange={e=>updateData(e,"contact")} required/>
+                    <input type="number" placeholder="Contact" style={{width:'86%'}} onChange={e=>updateData(e,"contact")} required/>
                 </div>
                 <div className="input">
                     {" "}
