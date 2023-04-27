@@ -76,12 +76,8 @@ function Proposaldetail(props) {
           </div>
           <div className="select-btn">
             <button
+              id="btn"
               onClick={selectProposal}
-              style={{
-                background: "white",
-                color: "#006BD9",
-                border: "2px solid #006BD9",
-              }}
             >
               SELECT
             </button>

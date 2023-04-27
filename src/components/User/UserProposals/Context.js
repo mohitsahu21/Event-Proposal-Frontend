@@ -10,6 +10,10 @@ const AppContext = ({children}) => {
         localStorage.setItem('selectedproposal', proposal);
         setSelect(proposal);      
      }
+
+    //  useEffect(()=>{
+
+    //  },[])
     
     return (
         <Context.Provider value={{handleSelect,select}}>

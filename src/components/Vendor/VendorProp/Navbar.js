@@ -2,7 +2,7 @@ import React from "react";
 import "./VendorProp.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import '../../../images/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg'
+import dpicon from '../../../images/blank-profile-picture-g662da1357_640.png'
 
 function Navbar(props) {
   // console.log(props)
@@ -23,7 +23,7 @@ function Navbar(props) {
       </div>
       <div class="dropdown">
         <div className="imgven">
-          {/* <img src="../../../images/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg" /> */}
+          <img src={dpicon} alt="img" style={{width:'100%'}}/>
         </div>
         <div class="dropdown-content">
           <Link onClick={logout}  to="/">Log Out</Link>

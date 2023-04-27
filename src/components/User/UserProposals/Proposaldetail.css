@@ -141,9 +141,9 @@
   border-color: black;
   border-image: initial;
 }
-.ten-grid{
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
+.ten-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 #eleven {
@@ -183,19 +183,18 @@
   position: relative;
   top: 25px;
   left: 18px;
-
 }
 
 .one-email {
   position: relative;
-    top: 22px;
-    left: 18px;
+  top: 22px;
+  left: 18px;
 }
 
 .one-date {
   position: relative;
-    top: 23px;
-    left: 18px;
+  top: 23px;
+  left: 18px;
 }
 .event-type {
   position: relative;
@@ -206,4 +205,18 @@
   position: relative;
   top: -36px;
   left: 179px;
+}
+
+#btn {
+  background: "white";
+  color: "#006BD9";
+  border: "2px solid #006BD9";
+}
+
+
+
+.proposaldetailtop:hover #btn {
+  color: #000;
+  background: rgb(191, 191, 203);
+  transform: scale(1.1);
 }

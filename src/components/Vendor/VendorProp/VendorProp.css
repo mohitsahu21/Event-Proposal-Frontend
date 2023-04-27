@@ -13,9 +13,9 @@
   width: 36px;
   height: 36px;
   /* UI Properties */
-  background: transparent
-    url("../../../images/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg")
-    0% 0% no-repeat padding-box;
+  /* background: transparent
+    url("../../../images/party-people-enjoy-concert-at-festival-summer-DHDMPWH.jpg")
+    0% 0% no-repeat padding-box; */
   opacity: 1;
   border-radius: 25px;
 }
@@ -168,3 +168,8 @@
   margin: 122px 205px;
 }
 
+
+.container2 :hover{
+  opacity: 0.8;
+  transform: scale(1.1);
+}

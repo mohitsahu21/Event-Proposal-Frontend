@@ -10,11 +10,11 @@ function Userprop() {
   const navigate = useNavigate();
   const [proposal, setProposal] = useState([]);
   const { select } = useContext(Context);
-  const [getdeselect ,setGetdeselect]=useState(true);
+  const [getdeselect, setGetdeselect] = useState(true);
 
-  function deleteselect(){
+  function deleteselect() {
     localStorage.removeItem("selectedproposal");
-    setGetdeselect(false)
+    setGetdeselect(false);
   }
   // const [getselected , setGetSelected] = useState([]);
   // const [vendor,setVendor]=useState([]);
@@ -76,10 +76,7 @@ function Userprop() {
     }
   }, []);
 
-  useEffect(()=>{
-
-
-  },[getdeselect]);
+  useEffect(() => {}, [getdeselect]);
 
   return (
     <>
@@ -87,7 +84,7 @@ function Userprop() {
         <UserNav />
         <div className="userimg"></div>
         <div>
-          {(localStorage.getItem("selectedproposal")) ? (
+          {localStorage.getItem("selectedproposal") ? (
             <div>
               <div className="selected">
                 <p
@@ -96,23 +93,25 @@ function Userprop() {
                     position: "relative",
                     top: "0px",
                     left: "0px",
+                    fontSize: "20px",
+                    fontWeight: "bold",
                   }}
                 >
-                  Selected
+                  SELECTED
                 </p>
                 <div
                   style={{
                     position: "relative",
-                    top: "-39px",
-                    left: "105px",
+                    top: "-24px",
+                    left: "197px",
                     display: "inline-block",
                   }}
                 >
                   <button
                     onClick={deleteselect}
                     style={{
-                      width: "93px",
-                      height: "32px",
+                      width: "50px",
+                      height: "22px",
                       background: "#264774 0% 0% no-repeat padding-box",
                       borderradius: "8px",
                       opacity: "1",
@@ -120,7 +119,7 @@ function Userprop() {
                       border: "none",
                     }}
                   >
-                    Delete Select
+                    Delete
                   </button>
                 </div>
                 <div className="selectcontainer">
@@ -132,33 +131,29 @@ function Userprop() {
                         style={{ width: "100%", height: "100%" }}
                       />
                     </div>
-                    <Link
-                      to={`/Proposaldetail/${select._id}`}
-                      style={{ textDecoration: "none" }}
+
+                    <div
+                      className="venname"
+                      style={{ margin: "0px 0px 0px 10px", fontSize: "18px" }}
                     >
-                      <div
-                        className="venname"
-                        style={{ margin: "0px 0px 0px 10px", fontSize: "18px" }}
-                      >
-                        {select.eventName}
-                      </div>
-                      <div
-                        className="budge"
-                        style={{ fontSize: "13px", margin: "0px 0px 0px 10px" }}
-                      >
-                        {select.budget}
-                      </div>
-                      <div
-                        className="locatin"
-                        style={{ marginLeft: "10px", fontSize: "14px" }}
-                      >
-                        {select.placeOfEvent}
-                      </div>
-                    </Link>
+                      {select.eventName}
+                    </div>
+                    <div
+                      className="budge"
+                      style={{ fontSize: "13px", margin: "0px 0px 0px 10px" }}
+                    >
+                      {select.budget}
+                    </div>
+                    <div
+                      className="locatin"
+                      style={{ marginLeft: "10px", fontSize: "14px" }}
+                    >
+                      {select.placeOfEvent}
+                    </div>
                   </div>
                 </div>
               </div>
-              <p style={{ position: "relative", top: "288px", left: "154px" }}>
+              <p style={{ position: "relative", top: "288px", left: "154px",fontSize:'20px',fontWeight:'bold' }}>
                 Proposals
               </p>
               <div className="proposalcontainer">
@@ -169,7 +164,7 @@ function Userprop() {
             </div>
           ) : (
             <div>
-              <p style={{ position: "relative", top: "288px", left: "154px" }}>
+              <p style={{ position: "relative", top: "288px", left: "154px" ,fontSize:'20px',fontWeight:'bold'}}>
                 Proposals
               </p>
               <div className="proposalcontainer">
