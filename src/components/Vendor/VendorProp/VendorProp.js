@@ -27,22 +27,22 @@ function filter(){
 
 ///
 
- const getVendorData = () =>{
-  fetch("/vendordata",{
-    method:"POST",
-    crossDoamin : true,
-    headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
-    body:JSON.stringify({
-      token: localStorage.getItem("vendorToken"),
-    })
-  })
- .then((res)=>res.json())
- .then((data) =>{
-   setProposals(data)
-   })
-   .catch((err)=>{
-   console.log(err)})
-  }
+//  const getVendorData = () =>{
+//   fetch("/vendordata",{
+//     method:"POST",
+//     crossDoamin : true,
+//     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+//     body:JSON.stringify({
+//       token: localStorage.getItem("vendorToken"),
+//     })
+//   })
+//  .then((res)=>res.json())
+//  .then((data) =>{
+//    setProposals(data)
+//    })
+//    .catch((err)=>{
+//    console.log(err)})
+//   }
  
 // delete proposal
 
@@ -73,11 +73,13 @@ async function deleteEvent(id){
 
 
  const getProposals =() =>{
-  fetch("/proposals",{
-    method:"GET",
+  fetch("/vendorproposals",{
+    method:"POST",
     crossDoamin : true,
     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
-    
+    body:JSON.stringify({
+      token: localStorage.getItem("vendorToken"),
+    })
 })
 .then((res)=>res.json())
 .then((data) =>{

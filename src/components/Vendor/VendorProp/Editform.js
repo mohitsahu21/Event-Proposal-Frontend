@@ -102,7 +102,6 @@ function Editform() {
       }, []);
 
   return (
-    <>
     <div className='editformback'>
       <Navbar/>
       {/* <Userprop/> */}
@@ -207,7 +206,6 @@ function Editform() {
       </form>
     </div>
       </div>
-    </>
   )
 }
 

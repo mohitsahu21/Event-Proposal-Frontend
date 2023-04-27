@@ -2,6 +2,7 @@ import React from "react";
 import "./VendorProp.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import '../../../images/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg'
 
 function Navbar(props) {
   // console.log(props)
@@ -21,7 +22,9 @@ function Navbar(props) {
         <b>{localStorage.getItem("vendorName")}</b>
       </div>
       <div class="dropdown">
-        <div className="imgven"></div>
+        <div className="imgven">
+          {/* <img src="../../../images/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg" /> */}
+        </div>
         <div class="dropdown-content">
           <Link onClick={logout}  to="/">Log Out</Link>
         </div>
