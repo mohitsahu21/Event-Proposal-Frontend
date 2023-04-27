@@ -78,7 +78,8 @@ function Userprop() {
 
   useEffect(()=>{
 
-  },[getdeselect])
+
+  },[getdeselect]);
 
   return (
     <>

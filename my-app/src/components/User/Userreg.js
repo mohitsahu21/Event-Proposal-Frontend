@@ -30,7 +30,7 @@ function Userreg() {
       console.log(regForm)
       e.preventDefault();
       if (regForm.password !== regForm.conformpassword)
-      { alert("password and conform password not match")}
+      { alert("password and confirm password not match")}
 
      else
        {
@@ -88,7 +88,7 @@ function Userreg() {
                 </div>
                 <div className="input">
                     {" "}
-                    <input type="number" placeholder="Contact" style={{width:'86%'}} onChange={e=>updateData(e,"contact")} required/>
+                    <input type="number" placeholder="Contact" min={10} max={10} style={{width:'86%'}} onChange={e=>updateData(e,"contact")} required/>
                 </div>
                 <div className="input">
                     {" "}

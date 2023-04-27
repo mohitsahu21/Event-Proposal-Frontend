@@ -142,11 +142,11 @@ function Form() {
           </div>
         </div>
         <div className="containerform2">
-          <div style={{ height: "275px" }}>
+          <div style={{ height: "221px" }}>
           <p className="zupp">Images <button>Add</button><input type="file" name="file" multiple onChange={uploadImage} /></p>
             <div className="containerform2grid">
               <div style={{ border: "2px solid black" }}>
-            <img  width={100} height={100} src={cloudImage} alt="img.jpg"/>
+            <img  style={{width:'100%',height:'100%'}} src={cloudImage} alt="img.jpg"/>
               </div>
             </div>
           </div>

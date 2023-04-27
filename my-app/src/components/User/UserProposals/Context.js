@@ -8,8 +8,7 @@ const AppContext = ({children}) => {
     
      const handleSelect = (proposal) =>{
         localStorage.setItem('selectedproposal', proposal);
-        setSelect(proposal);
-             
+        setSelect(proposal);      
      }
     
     return (

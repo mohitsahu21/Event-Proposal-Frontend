@@ -1,7 +1,10 @@
 .nav {
-  display: flex;
-  color: #64a1f5;
+  display: inline-flex;
+    color: #64a1f5;
+    width: 100%;
+    background: white;
 }
+
 
 .imgven {
   position: absolute;

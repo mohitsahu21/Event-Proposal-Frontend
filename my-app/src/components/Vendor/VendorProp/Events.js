@@ -5,6 +5,7 @@ import editIcon from "../../../images/pencil-edit-button.jpg";
 import deleteIcon from "../../../images/bin.jpg";
 import { useNavigate } from "react-router-dom";
 
+
 function Events(props) {
   // console.log(props)
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ function Events(props) {
         <div className="eventimg">
           <div className="editimg">
             {" "}
-            <img src={editIcon}></img>{" "}
+            <Link to={`/Editform/${props.id}`}><img src={editIcon}></img>{" "}</Link>
           </div>
           <div className="deleteimg">
             {" "}

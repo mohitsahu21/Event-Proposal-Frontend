@@ -7,13 +7,12 @@ import Form from './Form'
 
 function Vencreateprop() {
   return (
-    <>
+    <div>
       <div className='createpropuserprop'>
       <Navbar/>
-      <Userprop/>
-      </div>
       <Form/>
-    </>
+      </div>
+    </div>
   )
 }
 
