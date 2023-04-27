@@ -16,7 +16,7 @@ function Proposaldetail(props) {
   console.log(id);
 
   const selectProposal = () =>{
-    fetch("https://event-proposal-backend-ehjs.onrender.com/selectproposal",{
+    fetch("/selectproposal",{
       method:"POST",
       crossDoamin : true,
       headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
@@ -35,7 +35,7 @@ function Proposaldetail(props) {
   }
 
   const getProposaldata = () => {
-    fetch(`https://event-proposal-backend-ehjs.onrender.com/getproposal/${id}`, {
+    fetch(`/getproposal/${id}`, {
       method: "GET",
       crossDoamin: true,
       headers: {

@@ -42,7 +42,7 @@ function Userprop() {
   // };
 
   const getProposaldata = () => {
-    fetch("https://event-proposal-backend-ehjs.onrender.com/proposals", {
+    fetch("/proposals", {
       method: "GET",
       crossDoamin: true,
       headers: {

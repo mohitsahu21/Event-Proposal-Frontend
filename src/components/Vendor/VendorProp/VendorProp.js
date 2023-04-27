@@ -28,7 +28,7 @@ function filter(){
 ///
 
  const getVendorData = () =>{
-  fetch("https://event-proposal-backend-ehjs.onrender.com/vendordata",{
+  fetch("/vendordata",{
     method:"POST",
     crossDoamin : true,
     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
@@ -49,7 +49,7 @@ function filter(){
 async function deleteEvent(id){
   let Id = {id};
   setIsdeleted(true);
-  fetch("https://event-proposal-backend-ehjs.onrender.com/deleteproposal",{
+  fetch("/deleteproposal",{
     method:"DELETE",
     crossDoamin : true,
     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
@@ -73,10 +73,13 @@ async function deleteEvent(id){
 
 
  const getProposals =() =>{
-  fetch("https://event-proposal-backend-ehjs.onrender.com/proposals",{
-    method:"GET",
+  fetch("/vendorproposals",{
+    method:"POST",
     crossDoamin : true,
     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+    body:JSON.stringify({
+      token: localStorage.getItem("vendorToken"),
+    })
     
 })
 .then((res)=>res.json())

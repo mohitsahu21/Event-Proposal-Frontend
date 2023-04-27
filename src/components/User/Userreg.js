@@ -35,7 +35,7 @@ function Userreg() {
      else
        {
       
-        fetch("https://event-proposal-backend-ehjs.onrender.com/user/register",{
+        fetch("/user/register",{
         method:"POST",
         crossDoamin : true,
         headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
