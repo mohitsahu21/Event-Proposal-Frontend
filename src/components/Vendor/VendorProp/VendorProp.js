@@ -49,7 +49,7 @@ function filter(){
 async function deleteEvent(id){
   let Id = {id};
   setIsdeleted(true);
-  fetch("/deleteproposal",{
+  fetch("https://event-proposal-backend-g0mb.onrender.com/deleteproposal",{
     method:"DELETE",
     crossDoamin : true,
     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
@@ -73,7 +73,7 @@ async function deleteEvent(id){
 
 
  const getProposals =() =>{
-  fetch("/vendorproposals",{
+  fetch("https://event-proposal-backend-g0mb.onrender.com/vendorproposals",{
     method:"POST",
     crossDoamin : true,
     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
