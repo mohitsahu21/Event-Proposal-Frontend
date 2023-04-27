@@ -38,7 +38,7 @@ function Editform() {
         //         formData.append("events", proposal.events);
         //         formData.append("token", proposal.token);
                 // console.log(formData)
-                fetch(`https://event-proposal-backend-g0mb.onrender.com/editproposal/${id}`, {
+                fetch(`https://event-proposal-backend-ehjs.onrender.com/editproposal/${id}`, {
                     method: "PUT",
                     crossDoamin: true,
                     headers: {
@@ -58,7 +58,7 @@ function Editform() {
         }
 
     const getProposaldata = () => {
-        fetch(`https://event-proposal-backend-g0mb.onrender.com/getproposal/${id}`, {
+        fetch(`https://event-proposal-backend-ehjs.onrender.com/getproposal/${id}`, {
           method: "GET",
           crossDoamin: true,
           headers: {
