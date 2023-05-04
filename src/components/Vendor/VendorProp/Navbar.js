@@ -2,6 +2,7 @@ import React from "react";
 import "./VendorProp.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import dpicon from '../../../images/blank-profile-picture-g662da1357_640.png'
 
 function Navbar(props) {
@@ -10,6 +11,14 @@ function Navbar(props) {
   const logout=()=> {
     localStorage.removeItem('vendorToken');
     localStorage.removeItem('vendorloggedIn');
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: "logout Successful",
+      timer: 1500,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    })
     navigate('/')
   
    }

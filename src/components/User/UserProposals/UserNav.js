@@ -2,6 +2,7 @@ import React from "react";
 import "./Userprop.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
 import dpicon from '../../../images/user-sign-icon-person-symbol-human-avatar-isolated-on-white-backogrund-vector.jpg'
 
 function UserNav() {
@@ -10,6 +11,14 @@ function UserNav() {
     localStorage.removeItem("userToken");
     localStorage.removeItem("userloggedIn");
     localStorage.removeItem("selectedproposal");
+    Swal.fire({
+      position: 'center',
+      icon: 'success',
+      title: "logout Successful",
+      timer: 1500,
+      timerProgressBar: true,
+      showConfirmButton: false,
+    })
     navigate("/User");
   };
   return (

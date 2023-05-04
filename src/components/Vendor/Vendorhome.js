@@ -5,6 +5,7 @@ import "./Vendorhome.css";
 import Home from "../Home/Home";
 import Userhome from "../User/Userhome";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function VendorHome() {
 
@@ -22,13 +23,7 @@ function VendorHome() {
     }))
     
      }
-  // function updateData(e,[propName]){
-  //   let temp=e.target.value
-  //   setFormData(data => ({
-  //     ...data,[propName]: temp
-  //   }))
-  // }
-
+  
   async function submitted(e){
     e.preventDefault()
     // const data=new FormData(e.target)
@@ -48,15 +43,34 @@ function VendorHome() {
      localStorage.setItem('vendorName', data.vendorName);
      if (data.status == "ok")
      {
-      alert("login Successful")
+    
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: "login Successful",
+        timer: 1500,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      })
       navigate("/VendorProposal")
      }if (data.status === "error"){
-      alert(`${data.error}`)
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title:`${data.error}` ,
+        showConfirmButton: true,
+        confirmButtonText: 'ok',
+      })
     }
      
     console.log(data)})
   .catch((err)=>{
-    console.log(err)})
+    console.log(err)
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong!',
+    })})
    }
 
     return (<>
@@ -75,22 +89,22 @@ function VendorHome() {
           <div className="form">
             <form method="post"  onSubmit={submitted}>
               <div className="input">
-                {" "}
-                <input type="email" placeholder="Phone/Email" style={{width:'300px'}} name="email" onChange={e=>updateData(e,"email")} required/>{" "}
+                
+                <input type="email" placeholder="Phone/Email" style={{width:'300px'}} name="email" onChange={e=>updateData(e,"email")} required/>
               </div>
               <div className="input">
-                {" "}
-                <input type="password" placeholder="Password" style={{width:'300px'}} name="password"  onChange={e=>updateData(e,"password")} required />{" "}
+              
+                <input type="password" placeholder="Password" style={{width:'300px'}} name="password"  onChange={e=>updateData(e,"password")} required />
               </div>
               <div className="forget">
-                {" "}
-                <Link to="/forgetPassword" style={{textDecoration:'none'}}>Forget Password</Link>{" "}
+                
+                 Forget Password
               </div>
 
               <div className="footer">
                 <div className="create">
-                  {" "}
-                  <Link to="/createvendoraccount" style={{textDecoration:'none'}}>Create Account</Link>{" "}
+                  
+                  <Link to="/createvendoraccount" style={{textDecoration:'none'}}>Create Account</Link>
                 </div>
                 {/* <Link to='/VendorProposal'> */}
                 <button className="button" type="submit">

@@ -5,39 +5,25 @@ import { useParams } from 'react-router-dom'
 import '.././VendorCreateProp/Vencreateprop.css'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import img from '../../../images/render.jpg'
+import Swal from 'sweetalert2'
 
 
 function Editform() {
     const navigate = useNavigate();
     const [proposal,setProposal]=useState([]);
-    // const [newproposal,setNewproposal]=useState([]);
-    const [loading,setLoading] = useState(false);
-  const [cloudImage,setCloudImage] = useState("");
-//   const [regForm,setRegForm]=useState({
-//     eventName : "", placeOfEvent : "",proposalType : "",eventType : "", budget : "",fromDate :"", toDate : "",foodPreference : "",description : "" ,events : "",token: localStorage.getItem("vendorToken")
-//   })
+    const [venueImage,setVenueImage] =useState([]);
+  const [venImg, setVenImg] = useState([]);
+  
     const {id}=useParams();
-    console.log(id)
-    console.log(proposal)
+     console.log(proposal)
 
          async function submitform(e){
           e.preventDefault();
           try{
             const formData = new FormData(e.target);
             console.log(proposal)
-        //   formData.append("image", cloudImage);
-        //         formData.append("eventName", proposal.eventName);
-        //         formData.append("placeOfEvent", proposal.placeOfEvent);
-        //         formData.append("proposalType", proposal.proposalType);
-        //         formData.append("eventType", proposal.eventType);
-        //         formData.append("budget", proposal.budget);
-        //         formData.append("fromDate", proposal.fromDate);
-        //         formData.append("toDate", proposal.toDate);
-        //         formData.append("foodPreference", proposal.foodPreference);
-        //         formData.append("description", proposal.description);
-        //         formData.append("events", proposal.events);
-        //         formData.append("token", proposal.token);
-                // console.log(formData)
+    
                 fetch(`https://event-proposal-backend-ehjs.onrender.com/editproposal/${id}`, {
                     method: "PUT",
                     crossDoamin: true,
@@ -51,6 +37,11 @@ function Editform() {
                     .then((res) => res.json())
                     .then((data) => {
                        console.log(data);
+                       Swal.fire(
+                        'Good job!',
+                        'Proposal Edited Successfully!',
+                        'success'
+                      )
                        navigate("/VendorProposal")
                     })} catch (error){
              console.log(error)
@@ -70,29 +61,43 @@ function Editform() {
           .then((res) => res.json())
           .then((data) => {
             setProposal(data.proposal);
+            setVenImg(data.proposal.venueImage)
+            
+            
             
           })
           .catch((err) => {
             console.log(err);
           });
       };
-
-      const uploadImage = async e => {
-        const files = e.target.files
+      
+      const uploadImage = async (val) => {
+       
         const data = new FormData();
-        data.append('file',files[0])
+        data.append('file',val)
         data.append('upload_preset','events')
-        setLoading(true)
-        const res = await fetch("https://api.cloudinary.com/v1_1/dhryrs3lr/image/upload",
-        {
-          method :'POST',
-          body:data
-        })
-        const file = await res.json();
-        console.log(file);
-        setProposal({...proposal,image:file.secure_url})
-        setLoading(false);
+       
+       return await axios.post("https://api.cloudinary.com/v1_1/dhryrs3lr/image/upload",data).then(res => {return res.data.secure_url});
+          
       }
+      
+     const uploadVenueImage =async()=>{
+          if(venueImage.length>0){
+            
+            let arr = venueImage.map((val)=> {
+             
+              return uploadImage(val)
+            })
+           
+         let result = await Promise.all(arr).then(res => {
+             
+             setProposal({...proposal,venueImage:res})
+             
+              
+            })
+          }
+     }
+
       useEffect(() => {
         getProposaldata();
         if (
@@ -104,10 +109,9 @@ function Editform() {
   return (
     <div className='editformback'>
       <Navbar/>
-      {/* <Userprop/> */}
       <div className="form1">
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <b>CREATE PROPOSAL</b>
+        <b>EDIT PROPOSAL</b>
       </div>
       <form method="put" onSubmit={submitform}>
         <div className="container1form">
@@ -125,8 +129,11 @@ function Editform() {
                 style={{ width: "165px", height: "38px" }}
               >
                 <option value=""></option>
-                <option value="marriage">Banglore</option>
-                <option value="birthday">Delhi</option>
+                <option value="Banglore">Banglore</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Kolkata">Kolkata</option>
+                <option value="Pune">Pune</option>
               </select>
             </div>
             <div style={{ marginRight: "153px" }}>
@@ -184,15 +191,29 @@ function Editform() {
             <input type="text" style={{ width: "468px", height: "122px" }} name='description' value={proposal.description} onChange={e=>setProposal({...proposal,description:e.target.value})} />
           </div>
         </div>
-        <div className="containerform2">
-          <div style={{ height: "221px" }}>
-          <p className="zupp">Images <button>Add</button><input type="file" name="image" multiple onChange={uploadImage}/></p>
+          <div className="containerform2">
+            <div style={{ height: "221px" }}>
+            <p className="zupp">Images <button>Add</button><input type="file" max="5" accept="image/*" name="venueImage" multiple onChange={(e) => { setVenueImage([...e.target.files]); setVenImg([...e.target.files]);  alert("image added") }} onBlur={uploadVenueImage 
+              
+              } /></p>
             <div className="containerform2grid">
               <div style={{ border: "2px solid black" }}>
-            <img  style={{width:'100%',height:'100%'}} src={proposal.image} alt="img.jpg"/>
+                <img style={{ width: '100%', height: '100%' }} src={proposal?.venueImage ? proposal.venueImage[0] : img} alt="img.jpg" />
+              </div>
+              <div style={{ border: "2px solid black" }}>
+                <img style={{ width: '100%', height: '100%' }} src={proposal?.venueImage ? proposal.venueImage[1] : img} alt="img.jpg" />
+              </div>
+              <div style={{ border: "2px solid black" }}>
+                <img style={{ width: '100%', height: '100%' }} src={proposal?.venueImage ? proposal.venueImage[2] : img} alt="img.jpg" />
+              </div>
+              <div style={{ border: "2px solid black" }}>
+                <img style={{ width: '100%', height: '100%' }} src={proposal?.venueImage ? proposal.venueImage[3] : img} alt="img.jpg" />
+              </div>
+              <div style={{ border: "2px solid black" }}>
+                <img style={{ width: '100%', height: '100%' }} src={proposal?.venueImage ? proposal.venueImage[4] : img} alt="img.jpg" />
               </div>
             </div>
-          </div>
+            </div>
           <div>
             <p>Food Preferences</p>
             <input type="text" style={{ width: "525px", height: "57px" }} name='foodPreference' value={proposal.foodPreference} onChange={e=>setProposal({...proposal,foodPreference:e.target.value})}/>

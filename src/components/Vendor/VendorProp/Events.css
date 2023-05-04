@@ -69,4 +69,5 @@
     /* UI Properties */
     /* background: transparent url('../../../images/bin.jpg') 0% 0% no-repeat padding-box; */
     opacity: 1;
+    cursor: pointer;
 }

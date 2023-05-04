@@ -2,6 +2,7 @@ import React, { useState,useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Home from '../Home/Home'
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 function Userreg() {
@@ -30,7 +31,13 @@ function Userreg() {
       console.log(regForm)
       e.preventDefault();
       if (regForm.password !== regForm.conformpassword)
-      { alert("password and confirm password not match")}
+      {  Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Password And Confirm Password Not Matched',
+        showConfirmButton: true,
+        confirmButtonText: 'ok',
+      })}
 
      else
        {
@@ -46,16 +53,34 @@ function Userreg() {
     .then((data)=>{
       if (data.status === "ok")
       {
-       alert("registration Successful")
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Registration Successful',
+          timer: 1500,
+          timerProgressBar: true,
+          showConfirmButton: false,
+        })
        navigate("/User")
       }
       if (data.status === "error"){
-        alert(`${data.error}`)
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title:`${data.error}` ,
+          showConfirmButton: true,
+          confirmButtonText: 'ok',
+        })
       }
-      console.log(data ,"UserRegisterd")})
+      console.log(data)})
     
     .catch((err)=>{
-      console.log(err)})
+      console.log(err)
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Something went wrong!',
+      })})
      }}
   
   return (
@@ -79,30 +104,30 @@ function Userreg() {
           <div className="form">
             <form method="post" style={{margin:'0px 0px 0px 0px'}} onSubmit={submitform}>
                 <div className="input">
-                    {" "}
+                   
                     <input type="text" placeholder="Name" style={{width:'86%'}} onChange={e=>updateData(e,"name")} required/>
                 </div>
                 <div className="input">
-                    {" "}
+            
                     <input type="email" placeholder="Email" style={{width:'86%'}} onChange={e=>updateData(e,"email")} required />
                 </div>
                 <div className="input">
-                    {" "}
+                 
                     <input type="number" placeholder="Contact" style={{width:'86%'}} onChange={e=>updateData(e,"contact")} required/>
                 </div>
                 <div className="input">
-                    {" "}
+                   
                     <input type="password" placeholder="Password" style={{width:'86%'}} onChange={e=>updateData(e,"password")} required/>
                 </div>
                 <div className="input">
-                    {" "}
+            
                     <input type="password" placeholder="Confirm Password" style={{width:'86%'}} onChange={e=>updateData(e,"conformpassword")} required/>
                 </div>
 
                 <div className="regfooter">
                 <div className="signin">
-                  {" "}
-                  <Link to="/User" style={{textDecoration:'none'}}>Sign In</Link>{" "}
+                
+                  <Link to="/User" style={{textDecoration:'none'}}>Sign In</Link>
                 </div>
                 <button className="regbutton" type="submit">
                   REGISTER

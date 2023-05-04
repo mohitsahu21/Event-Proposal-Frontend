@@ -5,6 +5,8 @@ import { useParams } from "react-router";
 import { useContext } from "react"
 import { Context } from "./Context"
 import { useNavigate } from "react-router-dom";
+import img from '../../../images/render.jpg'
+import Swal from 'sweetalert2'
 
 
 function Proposaldetail(props) {
@@ -28,6 +30,11 @@ function Proposaldetail(props) {
    .then((data) =>{
       // console.log(data.data)
       handleSelect(data.data)
+      Swal.fire(
+        'Good job!',
+        'Proposal Selected Successfully!',
+        'success'
+      )
       navigate('/Userproposals')
      })
      .catch((err)=>{
@@ -90,7 +97,7 @@ function Proposaldetail(props) {
                 className="one-img"
                 style={{ width: "295px", height: "200px" }}
               >
-                <img src={proposal?.image} alt="img.jpg" />
+                <img src={proposal?.venueImage ? proposal?.venueImage[0] : img} alt="img.jpg" />
                 <p
                   style={{
                     fontweight: "bold",
@@ -183,16 +190,32 @@ Book a venue at least 8 months in advance so that you will have enough time to p
               <div id="albumtext">My album</div>
               <div id="four">
                 <img
-                  src={proposal?.image}
+                  src={proposal?.venueImage ? proposal?.venueImage[0] : img}
                   alt="img.jpg"
                   style={{ width: "100%", height: "100%" }}
                 />
               </div>
-              <div id="five"></div>
-              <div id="six"></div>
-              <div id="seven"></div>
-              <div id="eight"></div>
-              <div id="nine"></div>
+              <div id="five">  <img
+                  src={proposal?.venueImage ? proposal?.venueImage[1] : img}
+                  alt="img.jpg"
+                  style={{ width: "100%", height: "100%" }}
+                /></div>
+              <div id="six"> <img
+                  src={proposal?.venueImage ? proposal?.venueImage[2] : img}
+                  alt="img.jpg"
+                  style={{ width: "100%", height: "100%" }}
+                /></div>
+              <div id="seven"> <img
+                  src={proposal?.venueImage ? proposal?.venueImage[3] : img}
+                  alt="img.jpg"
+                  style={{ width: "100%", height: "100%" }}
+                /></div>
+              <div id="eight"> <img
+                  src={proposal?.venueImage ? proposal?.venueImage[4] : img}
+                  alt="img.jpg"
+                  style={{ width: "100%", height: "100%" }}
+                /></div>
+            
             </div>
             <div style={{ position: "relative", top: "7px", left: "261px" }}>
               <b>Contacts | 12</b>

@@ -5,71 +5,58 @@ import "./VendorProp.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../../../images/icons8-filter-64.png";
+import Swal from "sweetalert2"
 
 function VendorProp() {
   const navigate = useNavigate();
   const [proposals , setProposals] = useState([]);
-//  const [vendorName , setVendorName] = useState("");
  const [isDeleted, setIsdeleted] = useState(false)
  const [query,setQuery]=useState("")
  const [filtered,setFiltered]=useState([]);
  const [activeGenre,setActiveGenre]=useState("all");
 
- console.log(document.cookie.split("=")[1])
-//  console.log(proposals)
-//  console.log(filtered)
-//  console.log(activeGenre)
+ 
 function filter(){
   let value=document.getElementById('filterlist').value.toLowerCase();
   setActiveGenre(value)
 }
 
-
-///
-
-//  const getVendorData = () =>{
-//   fetch("/vendordata",{
-//     method:"POST",
-//     crossDoamin : true,
-//     headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
-//     body:JSON.stringify({
-//       token: localStorage.getItem("vendorToken"),
-//     })
-//   })
-//  .then((res)=>res.json())
-//  .then((data) =>{
-//    setProposals(data)
-//    })
-//    .catch((err)=>{
-//    console.log(err)})
-//   }
- 
-// delete proposal
-
 async function deleteEvent(id){
   let Id = {id};
-  setIsdeleted(true);
-  fetch("https://event-proposal-backend-ehjs.onrender.com/deleteproposal",{
-    method:"DELETE",
-    crossDoamin : true,
-    headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
-    body:JSON.stringify(Id)
-    
-})
-.then((res)=>res.json())
-.then((data)=>{
-  alert("Proposal Deleted")
+  Swal.fire({
+    title: 'Delete this Proposal?',
+    showDenyButton: true,
+    showCancelButton: false,
+    confirmButtonText: 'Delete',
+    denyButtonText: `Cancel`,
+    }).then((result) => {
+    if (result.isConfirmed) {
+      setIsdeleted(true);
+      fetch("https://event-proposal-backend-ehjs.onrender.com/deleteproposal",{
+        method:"DELETE",
+        crossDoamin : true,
+        headers:{"content-type":"application/json","accept":"application/json","Access-Control-Allow-Origin" : "*"},
+        body:JSON.stringify(Id)
+        
+    })
+    .then((res)=>getProposals())
+         .catch(err=>{
+             console.log(err);
+         })
+        }
+        })
+    }
+  
+
   
   
-  console.log(data);
   
  
- })
+ 
  
 
-.catch((err)=>{
-  console.log(err)})
- }
+
+ 
 
 
  const getProposals =() =>{
@@ -93,7 +80,7 @@ async function deleteEvent(id){
   useEffect(()=>{
     // console.log(activeGenre)
         // getVendorData();
-        // setIsdeleted(false);
+        setIsdeleted(false);
         getProposals();
         // filter();
 

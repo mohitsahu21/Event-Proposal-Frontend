@@ -3,12 +3,15 @@ import "./Form.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import img from '../../../images/render.jpg'
+import Swal from 'sweetalert2'
 function Form() {
   const navigate = useNavigate();
-  const [loading,setLoading] = useState(false);
-  const [cloudImage,setCloudImage] = useState("");
+  const [venueImage,setVenueImage] =useState([]);
+  const [venImg, setVenImg] = useState([]);
+  
   const [regForm,setRegForm]=useState({
-    eventName : "", placeOfEvent : "",proposalType : "",eventType : "", budget : "",fromDate :"", toDate : "",foodPreference : "",description : "" ,events : "",token: localStorage.getItem("vendorToken")
+    eventName : "", placeOfEvent : "",proposalType : "",eventType : "", budget : "",fromDate :"", toDate : "",foodPreference : "",description : "" ,events : "", venueImage: [],token: localStorage.getItem("vendorToken")
   })
   function updateData(e,propName){
     let temp=e.target.value
@@ -16,56 +19,72 @@ function Form() {
      ...data,[propName]:temp
     }))
      }
-     async function submitform(e){
+
+     const submitform = async(e) =>{
       e.preventDefault();
       try{
-        const formData = new FormData();
-      console.log(regForm)
-      formData.append("image", cloudImage);
-            formData.append("eventName", regForm.eventName);
-            formData.append("placeOfEvent", regForm.placeOfEvent);
-            formData.append("proposalType", regForm.proposalType);
-            formData.append("eventType", regForm.eventType);
-            formData.append("budget", regForm.budget);
-            formData.append("fromDate", regForm.fromDate);
-            formData.append("toDate", regForm.toDate);
-            formData.append("foodPreference", regForm.foodPreference);
-            formData.append("description", regForm.description);
-            formData.append("events", regForm.events);
-            formData.append("token", regForm.token);
-       const res = await axios.post("https://event-proposal-backend-ehjs.onrender.com/createproposal", formData);
+      
+       const res = await axios.post("https://event-proposal-backend-ehjs.onrender.com/createproposal", regForm);
        if (res.data.status == "ok")
       {
-       alert("Proposal Created")
+    
+       Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: "Proposal Created",
+        timer: 1500,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      })
        navigate("/VendorProposal")
       }
       if (res.data.status == "error"){
-        alert(`${res.data.error}`)
+       
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title:`${res.data.error}` ,
+          showConfirmButton: true,
+          confirmButtonText: 'ok',
+        })
       }
       console.log(res.data ,"VendorRegisterd")
       }  catch (error){
          console.log(error)
+         Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong!',
+        })
       }
     }
-    //  const handleImageChange = (e) => {
-    //   setImage(e.target.files[0]);
-    // };
-    const uploadImage = async e => {
-      const files = e.target.files
+  
+    const uploadImage = async (val) => {
+       
       const data = new FormData();
-      data.append('file',files[0])
+      data.append('file',val)
       data.append('upload_preset','events')
-      setLoading(true)
-      const res = await fetch("https://api.cloudinary.com/v1_1/dhryrs3lr/image/upload",
-      {
-        method :'POST',
-        body:data
-      })
-      const file = await res.json();
-      console.log(file);
-      setCloudImage(file.secure_url);
-      setLoading(false);
+     
+      return await axios.post("https://api.cloudinary.com/v1_1/dhryrs3lr/image/upload", data).then(res =>{return res.data.secure_url});
+
     }
+    
+   const uploadVenueImage =async()=>{
+        if(venueImage.length>0){
+          
+          let arr = venueImage.map((val)=> {
+           
+            return uploadImage(val)
+          })
+          console.log(arr)
+       let result = await Promise.all(arr).then(res => {
+            
+            setRegForm({...regForm,venueImage:res})
+            
+            
+          })
+        }
+   }
   return (
     <div className="form1">
       <div style={{ display: "flex", justifyContent: "center" }}>
@@ -86,8 +105,11 @@ function Form() {
                 style={{ width: "165px", height: "38px" }}
               >
                 <option value=""></option>
-                <option value="marriage">Banglore</option>
-                <option value="birthday">Delhi</option>
+                <option value="Banglore">Banglore</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Kolkata">Kolkata</option>
+                <option value="Pune">Pune</option>
               </select>
             </div>
             <div style={{ marginRight: "153px" }}>
@@ -143,10 +165,22 @@ function Form() {
         </div>
         <div className="containerform2">
           <div style={{ height: "221px" }}>
-          <p className="zupp">Images <button>Add</button><input type="file" name="file" multiple onChange={uploadImage} /></p>
+            <p className="zupp">Images <button>Add</button><input type="file" max="5" accept="image/*" name="venueImage" multiple onChange={(e) => { setVenueImage([...e.target.files]); setVenImg([...e.target.files]);   alert("image added") }} onBlur={uploadVenueImage} /></p>
             <div className="containerform2grid">
               <div style={{ border: "2px solid black" }}>
-            <img  style={{width:'100%',height:'100%'}} src={cloudImage} alt="img.jpg"/>
+                <img style={{ width: '100%', height: '100%' }} src={venImg[0] ? URL.createObjectURL(venImg[0]) : img} alt="img.jpg" />
+              </div>
+              <div style={{ border: "2px solid black" }}>
+                <img style={{ width: '100%', height: '100%' }} src={venImg[1] ? URL.createObjectURL(venImg[1]) : img} alt="img.jpg" />
+              </div>
+              <div style={{ border: "2px solid black" }}>
+                <img style={{ width: '100%', height: '100%' }} src={venImg[2] ? URL.createObjectURL(venImg[2]) : img} alt="img.jpg" />
+              </div>
+              <div style={{ border: "2px solid black" }}>
+                <img style={{ width: '100%', height: '100%' }} src={venImg[3] ? URL.createObjectURL(venImg[3]) : img} alt="img.jpg" />
+              </div>
+              <div style={{ border: "2px solid black" }}>
+                <img style={{ width: '100%', height: '100%' }} src={venImg[5] ? URL.createObjectURL(venImg[4]) : img} alt="img.jpg" />
               </div>
             </div>
           </div>

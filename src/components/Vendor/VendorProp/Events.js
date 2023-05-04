@@ -43,14 +43,14 @@ function Events(props) {
         <div className="budget">
           <p style={{ color: "#AAAAAA", lineHeight: "0pt" }}>Budget</p>
           {props.data.budget}
-        </div>{" "}
+        </div>
         <div className="eventimg">
           <div className="editimg">
-            {" "}
-            <Link to={`/Editform/${props.id}`}><img src={editIcon}></img>{" "}</Link>
+           
+            <Link to={`/Editform/${props.id}`}><img src={editIcon}></img></Link>
           </div>
           <div className="deleteimg">
-            {" "}
+          
             <img src={deleteIcon} onClick={() => props.delete(props.id)}></img>
           </div>
         </div>

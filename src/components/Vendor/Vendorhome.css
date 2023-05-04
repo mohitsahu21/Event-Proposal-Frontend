@@ -47,6 +47,7 @@ button {
   opacity: 1;
   color: #ffffff;
   border: none;
+  cursor: pointer;
 }
 .forget {
   display: flex;
@@ -122,4 +123,5 @@ button {
     position: relative;
     top: 49px;
     left: 31px;
+   
 }

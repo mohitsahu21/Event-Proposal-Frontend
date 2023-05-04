@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "./Context";
+import img from '../../../images/render.jpg'
+import Swal from 'sweetalert2'
 
 function Userprop() {
   const navigate = useNavigate();
@@ -13,33 +15,25 @@ function Userprop() {
   const [getdeselect, setGetdeselect] = useState(true);
 
   function deleteselect() {
-    localStorage.removeItem("selectedproposal");
+    Swal.fire({
+      title: 'Delete this Proposal?',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Delete',
+      denyButtonText: `Cancel`,
+      }).then((result) => {
+      if (result.isConfirmed) {
+        
+        localStorage.removeItem("selectedproposal");
     setGetdeselect(false);
+          
+   } })
   }
-  // const [getselected , setGetSelected] = useState([]);
-  // const [vendor,setVendor]=useState([]);
-  // console.log(select.length===0 ? "false" : "true");
-  //   console.log(select._id)
-  //  console.log(getselected)
-  // const selectedProposal = ()=>{
-  //   fetch(`/getselectedproposals/${select._id}`, {
-  //     method: "GET",
-  //     crossDoamin: true,
-  //     headers: {
-  //       "content-type": "application/json",
-  //       accept: "application/json",
-  //       "Access-Control-Allow-Origin": "*",
-  //     },
-
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //     setGetSelected(data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  // };
+      
+         
+    
+  
+ 
 
   const getProposaldata = () => {
     fetch("https://event-proposal-backend-ehjs.onrender.com/proposals", {
@@ -77,6 +71,7 @@ function Userprop() {
   }, []);
 
   useEffect(() => {}, [getdeselect]);
+  console.log(select)
 
   return (
     <>
@@ -126,7 +121,7 @@ function Userprop() {
                   <div className="userproposal">
                     <div className="prop-img">
                       <img
-                        src={select.image}
+                        src={select.venueImage? select.venueImage[0]: img}
                         alt=""
                         style={{ width: "100%", height: "100%" }}
                       />

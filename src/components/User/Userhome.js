@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Home from '../Home/Home'
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Userhome() {
 
@@ -39,15 +40,33 @@ function Userhome() {
      localStorage.setItem('userName', data.userName);
      if (data.status == "ok")
      {
-      alert("login Successful")
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: "login Successful",
+        timer: 1500,
+        timerProgressBar: true,
+        showConfirmButton: false,
+      })
       navigate('/Userproposals')
      }if (data.status == "error"){
-      alert(`${data.error}`)
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title:`${data.error}` ,
+        showConfirmButton: true,
+        confirmButtonText: 'ok',
+      })
     }
      
     console.log(data)})
   .catch((err)=>{
-    console.log(err)})
+    console.log(err)
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Something went wrong!',
+    })})
    }
   return (
     <div>
@@ -66,21 +85,21 @@ function Userhome() {
           <div className="form">
             <form method="post"  onSubmit={submitted}>
               <div className="input">
-                {" "}
-                <input type="name" placeholder="Phone/Email" style={{width:'300px'}} name="email" onChange={e=>updateData(e,"email")} required/>{" "}
+              
+                <input type="name" placeholder="Phone/Email" style={{width:'300px'}} name="email" onChange={e=>updateData(e,"email")} required/>
               </div>
               <div className="input">
-                {" "}
-                <input type="password" placeholder="Password" style={{width:'300px'}} name="password"  onChange={e=>updateData(e,"password")} required/>{" "}
+                
+                <input type="password" placeholder="Password" style={{width:'300px'}} name="password"  onChange={e=>updateData(e,"password")} required/>
               </div>
               <div className="forget">
-                {" "}
-                <Link to="/forgetPassword" style={{textDecoration:'none'}}>Forget Password</Link>
+              
+               Forget Password
               </div>
 
               <div className="footer">
                 <div className="create">
-                  {" "}
+                 
                   <Link to="/createuseraccount" style={{textDecoration:'none'}}>Create Account</Link>
                 </div>
                   
